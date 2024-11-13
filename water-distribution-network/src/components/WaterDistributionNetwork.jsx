@@ -115,6 +115,43 @@ const WaterDistributionNetwork = () => {
     const size = getNodeSize(data.percentage);
     const isHovered = hoveredNode === data.name;
     
+    // Calculate font sizes based on node size
+    const getFontSize = () => {
+      const baseFontSize = size / 10; // Scale font with node size
+      return {
+        name: Math.min(Math.max(baseFontSize, 10), 24), // Min 10px, max 24px
+        percentage: Math.min(Math.max(baseFontSize * 0.8, 8), 20) // Slightly smaller than name
+      };
+    };
+  
+    // Split text into words for better wrapping
+    const wrapText = (text) => {
+      const words = text.split(' ');
+      const lines = [];
+      let currentLine = words[0];
+  
+      // Calculate maximum characters that can fit on one line
+      const maxCharsPerLine = Math.floor(size / (getFontSize().name / 1.5));
+  
+      for (let i = 1; i < words.length; i++) {
+        const word = words[i];
+        if ((currentLine + ' ' + word).length <= maxCharsPerLine) {
+          currentLine += ' ' + word;
+        } else {
+          lines.push(currentLine);
+          currentLine = word;
+        }
+      }
+      lines.push(currentLine);
+      return lines;
+    };
+  
+    const fontSizes = getFontSize();
+    const textLines = wrapText(data.name);
+    const lineHeight = fontSizes.name * 1.2;
+    const totalHeight = (textLines.length * lineHeight) + (fontSizes.percentage * 1.5);
+    const startY = (size / 2) - (totalHeight / 2);
+  
     return (
       <g
         transform={`translate(${x - size/2},${y - size/2})`}
@@ -136,10 +173,26 @@ const WaterDistributionNetwork = () => {
           y={size/2}
           textAnchor="middle"
           dominantBaseline="middle"
-          className="text-sm font-medium pointer-events-none"
+          className="pointer-events-none"
         >
-          <tspan x={size/2} dy="-0.5em">{data.name}</tspan>
-          <tspan x={size/2} dy="1.2em" className="text-xs">{data.percentage}%</tspan>
+          {textLines.map((line, index) => (
+            <tspan
+              key={index}
+              x={size/2}
+              dy={index === 0 ? startY - size/2 : lineHeight}
+              fontSize={fontSizes.name}
+            >
+              {line}
+            </tspan>
+          ))}
+          <tspan
+            x={size/2}
+            dy={lineHeight}
+            fontSize={fontSizes.percentage}
+            className="fill-gray-600"
+          >
+            {data.percentage}%
+          </tspan>
         </text>
       </g>
     );
@@ -240,17 +293,18 @@ const WaterDistributionNetwork = () => {
             percentage: 0.03,
             color: 'fill-green-400',
             children: [
-              { name: 'Archaea', percentage: 11, color: 'fill-lime-300' },
-              { name: 'Humans', percentage: 0.3, color: 'fill-lime-300' },
-              { name: 'Cattle', percentage: 1, color: 'fill-lime-300' },
-              { name: 'Crops', percentage: 2.7, color: 'fill-lime-300' },
-              { name: 'Plants', percentage: 1, color: 'fill-lime-300' },
-              { name: 'Trees', percentage: 0.6, color: 'fill-lime-300' },
               { name: 'Insects', percentage: 35, color: 'fill-lime-300' },
+              { name: 'Fungi', percentage: 23, color: 'fill-lime-300' },
+              { name: 'Bacteria', percentage: 22, color: 'fill-lime-300' },
+              { name: 'Archaea', percentage: 11, color: 'fill-lime-300' },
+              { name: 'Crops', percentage: 2.7, color: 'fill-lime-300' },
               { name: 'Fish', percentage: 2.7, color: 'fill-lime-300' },
               { name: 'Plankton', percentage: 2.3, color: 'fill-lime-300' },
-              { name: 'Bacteria', percentage: 22, color: 'fill-lime-300' },
-              { name: 'Fungi', percentage: 23, color: 'fill-lime-300' }
+              { name: 'Cattle', percentage: 1, color: 'fill-lime-300' },
+              { name: 'Plants', percentage: 1, color: 'fill-lime-300' },
+              { name: 'Trees', percentage: 0.6, color: 'fill-lime-300' },
+              { name: 'Humans', percentage: 0.3, color: 'fill-lime-300' }
+              
             ]
           }
         ]
@@ -263,11 +317,11 @@ const WaterDistributionNetwork = () => {
     percentage: 0.03,
     color: 'fill-emerald-400',
     children: [
-      { name: 'Agriculture', percentage: 73, color: 'fill-green-500' },
-      { name: 'Industry', percentage: 4, color: 'fill-green-400' },
-      { name: 'Urban Use', percentage: 2, color: 'fill-green-300' },
-      { name: 'Reservoir Evaporation', percentage: 11, color: 'fill-green-400' },
-      { name: 'To Dilute Pollution', percentage: 11, color: 'fill-green-300' }
+      { name: 'Agriculture', percentage: 73, color: 'fill-green-300' },
+      { name: 'Reservoir Evaporation', percentage: 11, color: 'fill-green-300' },
+      { name: 'To Dilute Pollution', percentage: 11, color: 'fill-green-300' },
+      { name: 'Industry', percentage: 4, color: 'fill-green-300' },
+      { name: 'Urban Use', percentage: 2, color: 'fill-green-300' }
     ]
   };
 

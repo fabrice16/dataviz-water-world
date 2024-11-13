@@ -1,6 +1,7 @@
 {
   "name": "water-distribution-network",
   "version": "0.1.0",
+  "homepage": "https://fabrice16.github.io/dataviz-water-world",
   "private": true,
   "dependencies": {
     "@shadcn/ui": "^0.0.4",
@@ -8,6 +9,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.20",
+    "gh-pages": "^6.2.0",
     "lucide-react": "^0.454.0",
     "postcss": "^8.4.47",
     "react": "^18.3.1",
@@ -17,6 +19,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
