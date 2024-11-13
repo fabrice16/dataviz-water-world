@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/dataviz-water-world/static/css/main.bdc6c44d.css",
-    "main.js": "/dataviz-water-world/static/js/main.b3fc1ba7.js",
+    "main.css": "/dataviz-water-world/static/css/main.69637176.css",
+    "main.js": "/dataviz-water-world/static/js/main.0f6092d9.js",
     "static/js/453.4e425522.chunk.js": "/dataviz-water-world/static/js/453.4e425522.chunk.js",
     "index.html": "/dataviz-water-world/index.html",
-    "main.bdc6c44d.css.map": "/dataviz-water-world/static/css/main.bdc6c44d.css.map",
-    "main.b3fc1ba7.js.map": "/dataviz-water-world/static/js/main.b3fc1ba7.js.map",
+    "main.69637176.css.map": "/dataviz-water-world/static/css/main.69637176.css.map",
+    "main.0f6092d9.js.map": "/dataviz-water-world/static/js/main.0f6092d9.js.map",
     "453.4e425522.chunk.js.map": "/dataviz-water-world/static/js/453.4e425522.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bdc6c44d.css",
-    "static/js/main.b3fc1ba7.js"
+    "static/css/main.69637176.css",
+    "static/js/main.0f6092d9.js"
   ]
 }
